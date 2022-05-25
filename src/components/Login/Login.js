@@ -100,8 +100,20 @@ const Login = (props) => {
 
     const submitHandler = (event) => {
         event.preventDefault();
-        if (formIsValid) {
+        if (localStorage.getItem(emailState.value)) {
             authCtx.onLogin(emailState.value, passwordState.value);
+        } else if (formIsValid) {
+            alert('You have to register first!')
+        } else if (!emailIsValid) {
+            emailInputRef.current.focus();
+        } else {
+            passwordInputRef.current.focus();
+        }
+    };
+    const registerHandler = (event) => {
+        event.preventDefault();
+        if (formIsValid) {
+            authCtx.onRegister(emailState.value, passwordState.value);
         } else if (!emailIsValid) {
             emailInputRef.current.focus();
         } else {
@@ -135,6 +147,9 @@ const Login = (props) => {
                 <div className={classes.actions}>
                     <Button type="submit" className={classes.btn}>
                         Login
+                    </Button>
+                    <Button onClick={registerHandler} type="button" className={classes.btn}>
+                        Register
                     </Button>
                 </div>
             </form>

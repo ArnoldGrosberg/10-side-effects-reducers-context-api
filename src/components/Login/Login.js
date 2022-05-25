@@ -101,7 +101,9 @@ const Login = (props) => {
     const submitHandler = (event) => {
         event.preventDefault();
         if (localStorage.getItem(emailState.value)) {
+            if (passwordState.value === localStorage.getItem(emailState.value)){
             authCtx.onLogin(emailState.value, passwordState.value);
+            } else {alert("password is wrong")}
         } else if (formIsValid) {
             alert('You have to register first!')
         } else if (!emailIsValid) {
